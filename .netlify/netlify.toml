@@ -1,0 +1,28 @@
+plugins = []
+headers = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "C:\\Users\\joshu\\Documents\\Antigravity Projects\\R3Genesis\\b2c_websites\\joshs-photography.com"
+publishOrigin = "config"
+commandOrigin = "config"
+base = "C:\\Users\\joshu\\Documents\\Antigravity Projects\\R3Genesis\\b2c_websites\\joshs-photography.com"
+command = "echo 'no build needed'"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]

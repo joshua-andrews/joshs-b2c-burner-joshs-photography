@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua | Lens & Light</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text-main: #111111;
+            --text-muted: #777777;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection { background-color: var(--text-main); color: var(--bg); }
+
+        /* Navigation */
+        nav {
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .menu-links { display: flex; gap: 40px; }
+        .menu-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        .menu-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--text-main);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .menu-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 60px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 8vw;
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 30px;
+            z-index: 2;
+        }
+
+        .hero p {
+            max-width: 400px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-left: 10vw;
+            z-index: 2;
+        }
+
+        .hero-img {
+            position: absolute;
+            top: 50%;
+            right: 10vw;
+            transform: translateY(-50%);
+            width: 35vw;
+            height: 70vh;
+            object-fit: cover;
+            z-index: 1;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            padding: 120px 60px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .grid-row {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 120px;
+            align-items: center;
+        }
+
+        .grid-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .gallery-item {
+            flex: 1;
+            position: relative;
+        }
+
+        .gallery-item.large { flex: 1.5; }
+
+        .image-wrapper {
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .caption {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .caption h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .caption span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            padding: 80px 60px;
+            text-align: center;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            nav { padding: 30px 20px; }
+            .hero { padding: 0 20px; }
+            .hero h1 { font-size: 15vw; margin-top: 100px; }
+            .hero p { margin-left: 0; margin-bottom: 40px; }
+            .hero-img { position: relative; width: 100%; height: 50vh; top: 0; right: 0; transform: none; margin-top: 40px; }
+            .gallery { padding: 60px 20px; }
+            .grid-row, .grid-row:nth-child(even) { flex-direction: column; gap: 40px; margin-bottom: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">Joshua.</a>
+        <div class="menu-links">
+            <a href="#">Portfolio</a>
+            <a href="#">Exhibitions</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1 class="fade-up">Chasing <br><i>Light</i>.</h1>
+        <p class="fade-up" style="transition-delay: 0.1s;">Documenting fragments of time through an editorial and architectural lens. Based in New York, capturing global narratives.</p>
+        <img src="https://picsum.photos/id/237/1000/1500" alt="Hero Image" class="hero-img fade-up" style="transition-delay: 0.2s;">
+    </section>
+
+    <section class="gallery">
+        <div class="grid-row">
+            <div class="gallery-item large fade-up">
+                <div class="image-wrapper">
+                    <img src="https://picsum.photos/id/433/1200/800" alt="Architecture">
+                </div>
+                <div class="caption">
+                    <h3>Brutalism Study</h3>
+                    <span>London, 2026</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-up" style="transition-delay: 0.2s;">
+                <div class="image-wrapper">
+                    <img src="https://picsum.photos/id/342/800/1000" alt="Urban Lines">
+                </div>
+                <div class="caption">
+                    <h3>Urban Lines</h3>
+                    <span>Tokyo, 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-row">
+            <div class="gallery-item fade-up">
+                <div class="image-wrapper">
+                    <img src="https://picsum.photos/id/338/800/1200" alt="Editorial">
+                </div>
+                <div class="caption">
+                    <h3>Studio Series IV</h3>
+                    <span>New York, 2026</span>
+                </div>
+            </div>
+            <div class="gallery-item large fade-up" style="transition-delay: 0.2s;">
+                <div class="image-wrapper">
+                    <img src="https://picsum.photos/id/129/1200/700" alt="Landscapes">
+                </div>
+                <div class="caption">
+                    <h3>Silent Cascades</h3>
+                    <span>Iceland, 2024</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px;">&copy; 2026 Joshua Photography Studio.</p>
+    </footer>
+
+    <script>
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Trigger initial visibility for elements already in viewport
+        setTimeout(() => {
+            document.querySelectorAll('.fade-up').forEach(element => {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    element.classList.add('visible');
+                }
+            });
+        }, 100);
+    </script>
+</body>
+</html>
